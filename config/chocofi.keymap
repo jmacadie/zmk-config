@@ -17,8 +17,10 @@
 #define NUM 1
 #define NAV 2
 #define SYM 3
-#define ADJ 4
-#define FN 5
+#define SYM_L 4
+#define SYM_R 5
+#define ADJ 6
+#define FN 7
 
 #define xxx &none
 #define ___ &trans
@@ -82,6 +84,28 @@
       require-prior-idle-ms = <PRIOR_IDLE_MS>;
       bindings = <&mo>, <&kp>;
       display-name = "Layer-Tap";
+    };
+    ltl: layer_tap_mod_left {
+      compatible = "zmk,behavior-hold-tap";
+      #binding-cells = <2>;
+      flavor = "balanced";
+      require-prior-idle-ms = <PRIOR_IDLE_MS>;
+      tapping-term-ms = <TAP_TERM_MS>;
+      quick-tap-ms = <QUICK_TAP_MS>;
+      bindings = <&mo>, <&kp>;
+      hold-trigger-key-positions = <RIGHT_KEYS THUMBS>; // List of keys on the right side of the keyboard
+      hold-trigger-on-release;
+    };
+    ltr: layer_tap_mod_right {
+      compatible = "zmk,behavior-hold-tap";
+      #binding-cells = <2>;
+      flavor = "balanced";
+      require-prior-idle-ms = <PRIOR_IDLE_MS>;
+      tapping-term-ms = <TAP_TERM_MS>;
+      quick-tap-ms = <QUICK_TAP_MS>;
+      bindings = <&mo>, <&kp>;
+      hold-trigger-key-positions = <LEFT_KEYS THUMBS>; // List of keys on the left side of the keyboard
+      hold-trigger-on-release;
     };
   };
 
@@ -148,7 +172,7 @@
       //├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤     ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤
          &hml LGUI A    &hml LALT R    &hml LCTRL S   &hml LSHIFT T  &kp G                &kp M          &hmr LSHIFT N  &hmr LCTRL E   &hmr LALT I    &hmr LGUI O
       //├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤     ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤
-         &kp Z          &kp X          &kp C          &kp D          &kp V                &kp K          &kp H          &kp COMMA      &kp DOT        &kp UNDER
+         &kp Z          &kp X          &kp C          &ltl SYM_R D   &kp V                &kp K          &ltr SYM_L H   &kp COMMA      &kp DOT        &kp UNDER
       //╰──────────────┴──────────────┼──────────────┼──────────────┼──────────────┤     ├──────────────┼──────────────┼──────────────┼──────────────┴──────────────╯
                                        &kp TAB        &lt NUM ESC    &lt NAV BSPC         &lt ADJ SPACE  &lt SYM RET    &lt FN DEL
       //                              ╰──────────────┴──────────────┴──────────────╯     ╰──────────────┴──────────────┴──────────────╯
@@ -200,6 +224,36 @@
       >;
     };
 
+    sym_left_layer {
+      display-name = "SYM_L";
+      bindings = <
+      //╭──────────────┬──────────────┬──────────────┬──────────────┬──────────────╮     ╭──────────────┬──────────────┬──────────────┬──────────────┬──────────────╮
+         &kp CARET      &kp ISO_PIPE   &kp LT         &kp GT         &kp UK_DQT           xxx            xxx            xxx            xxx            xxx
+      //├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤     ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤
+         &kp LBRC       &kp RBRC       &kp LPAR       &kp RPAR       &kp SQT              xxx            xxx            xxx            xxx            xxx
+      //├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤     ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤
+         &kp NUBS       &kp SLASH      &kp LBKT       &kp RBKT       &kp GRAVE            xxx            xxx            xxx            xxx            xxx
+      //╰──────────────┴──────────────┼──────────────┼──────────────┼──────────────┤     ├──────────────┼^^^───────────┼──────────────┼──────────────┴──────────────╯
+                                       xxx            xxx            &kp BSPC             xxx            xxx            xxx
+      //                              ╰──────────────┴──────────────┴──────────────╯     ╰──────────────┴──────────────┴──────────────╯
+      >;
+    };
+
+    sym_right_layer {
+      display-name = "SYM_R";
+      bindings = <
+      //╭──────────────┬──────────────┬──────────────┬──────────────┬──────────────╮     ╭──────────────┬──────────────┬──────────────┬──────────────┬──────────────╮
+         xxx            xxx            xxx            xxx            xxx                  &kp ASTRK      &kp EQUAL      &kp PLUS       &kp MINUS      &kp UK_POUND
+      //├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤     ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤
+         xxx            xxx            xxx            xxx            xxx                  &kp QMARK      &kp EXCL       &kp SEMI       &kp COLON      &kp DLLR
+      //├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤     ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤
+         xxx            xxx            xxx            xxx            xxx                  &kp AMPS       &kp UK_AT      &kp NUHS       &kp ISO_TILDA  &kp PRCNT
+      //╰──────────────┴──────────────┼──────────────┼^^^───────────┼──────────────┤     ├──────────────┼──────────────┼──────────────┼──────────────┴──────────────╯
+                                       xxx            xxx            &kp BSPC             xxx            xxx            xxx
+      //                              ╰──────────────┴──────────────┴──────────────╯     ╰──────────────┴──────────────┴──────────────╯
+      >;
+    };
+
     adj_layer {
       display-name = "ADJ";
       bindings = <
@@ -208,7 +262,7 @@
       //├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤     ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤
          &caps_word     &kp C_MUTE     &kp C_VOL_UP   &kp C_VOL_DN   &kp LC(Y)            xxx            xxx            xxx            xxx            xxx
       //├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤     ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤
-         &kp CAPS       xxx            xxx            &kp K_CMENU    &kp LC(N)            xxx            xxx            xxx            xxx            &bootloader
+         &kp CAPS       &kp K_CMENU    &kp CAPS       &caps_word     &kp LC(N)            xxx            xxx            xxx            xxx            &bootloader
       //╰──────────────┴──────────────┼──────────────┼──────────────┼──────────────┤     ├──────────────┼──────────────┼──────────────┼──────────────┴──────────────╯
                                        xxx            xxx            xxx                  xxx            xxx            xxx
       //                              ╰──────────────┴──────────────┴──────────────╯     ╰^^^───────────┴──────────────┴──────────────╯
