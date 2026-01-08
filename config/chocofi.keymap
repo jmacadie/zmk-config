@@ -52,6 +52,10 @@
 #define RIGHT_KEYS 5 6 7 8 9 15 16 17 18 19 25 26 27 28 29 // right-hand keys
 #define THUMBS 30 31 32 33 34 35 // thumb keys
 
+&caps_word {
+    continue-list = <UNDERSCORE MINUS BACKSPACE DELETE>;
+};
+
 / {
   behaviors {
     hml: home_row_mod_left {
