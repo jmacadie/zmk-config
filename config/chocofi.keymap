@@ -129,13 +129,6 @@
                     ╰──────┴──────┴──────╯   ╰──────┴──────┴──────╯
     */
 
-    combo_esc {
-      timeout-ms = <COMBO_TIMEOUT_MS>;
-      key-positions = <0 1>;
-      bindings = <&kp ESC>;
-      require-prior-idle-ms = <PRIOR_IDLE_MS>;
-    };
-
     combo_copy {
       timeout-ms = <COMBO_TIMEOUT_MS>;
       key-positions = <21 22>; // X + C
@@ -163,6 +156,21 @@
       bindings = <&kp LS(LC(V))>;
       require-prior-idle-ms = <PRIOR_IDLE_MS>;
     };
+
+    combo_enter {
+      timeout-ms = <COMBO_TIMEOUT_MS>;
+      key-positions = <15 16>; // M + N
+      bindings = <&kp RET>;
+      require-prior-idle-ms = <PRIOR_IDLE_MS>;
+    };
+
+    combo_esc {
+      timeout-ms = <COMBO_TIMEOUT_MS>;
+      key-positions = <13 14>; // T + G
+      bindings = <&kp ESC>;
+      require-prior-idle-ms = <PRIOR_IDLE_MS>;
+    };
+
   };
 
   keymap {
@@ -178,7 +186,7 @@
       //├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤     ├──────────────┼──────────────┼──────────────┼──────────────┼──────────────┤
          &kp Z          &kp X          &kp C          &ltl SYM_R D   &kp V                &kp K          &ltr SYM_L H   &kp COMMA      &kp DOT        &kp UNDER
       //╰──────────────┴──────────────┼──────────────┼──────────────┼──────────────┤     ├──────────────┼──────────────┼──────────────┼──────────────┴──────────────╯
-                                       &kp TAB        &lt NUM ESC    &lt NAV BSPC         &lt ADJ SPACE  &lt SYM RET    &lt FN DEL
+                                       &kp TAB        &mo NUM        &lt NAV BSPC         &lt ADJ SPACE  &mo SYM        &lt FN DEL
       //                              ╰──────────────┴──────────────┴──────────────╯     ╰──────────────┴──────────────┴──────────────╯
       >;
     };
